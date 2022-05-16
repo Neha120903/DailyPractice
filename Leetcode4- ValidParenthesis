@@ -1,0 +1,24 @@
+class Solution {
+    boolean matching(char a, char b){
+        return ((a=='{' && b=='}') 
+               || (a=='(' && b==')')
+                ||(a=='[' && b==']'));
+    }
+    public boolean isValid(String s) {
+        ArrayDeque<Character> q= new ArrayDeque<>();
+        for(int i=0;i<s.length();i++){
+            char x= s.charAt(i);
+            if(x=='(' || x=='{' || x=='[')
+                q.push(x);
+            else{
+                if(q.isEmpty()==true)
+                    return false;
+                else if(matching(q.peek(),x)==false)
+                    return false;
+                else
+                    q.pop();
+            }
+        }
+        return (q.isEmpty()==true);
+    }
+}
