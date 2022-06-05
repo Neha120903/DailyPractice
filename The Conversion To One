@@ -1,0 +1,25 @@
+import java.util.Scanner;
+
+class Solutions{
+    public static void main(String[] args){
+        
+        Scanner s = new Scanner(System.in);
+        int t = s.nextInt();
+        while(t>0){
+            
+            int n=s.nextInt();
+            System.out.println(countways(n));
+            
+            t--;
+        }
+    }
+    
+    public static int countways(int n){
+        if (n == 1)
+            return 0;
+        else if (n % 2 == 0)
+            return 1 + countways(n / 2);
+        else
+            return 1 + Math.min(countways(n - 1), countways(n + 1));
+    }
+}
