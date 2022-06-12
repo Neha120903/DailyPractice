@@ -1,0 +1,31 @@
+class Solution {
+    public int maximumUniqueSubarray(int[] nums) {
+        // 2 Pointer approach
+        
+        HashSet<Integer> hashSet = new HashSet<>();
+        int start = 0;
+        int end = 0;
+        int currSum = 0;
+        int maxSum = 0;
+        
+        while(end<nums.length)
+        {
+            int element = nums[end];
+            if(! hashSet.contains(element))
+            {
+                hashSet.add(element);
+                currSum+=element;
+                maxSum = Math.max(currSum , maxSum);
+                end++;
+            }
+            else
+            {
+                int deleteElmnt = nums[start];
+                hashSet.remove(deleteElmnt);
+                currSum= currSum - deleteElmnt;
+                start++;
+            }
+        }
+        return maxSum;
+    }
+}
