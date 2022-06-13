@@ -1,0 +1,62 @@
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    public static void main(String args[]) throws IOException {
+        BufferedReader read =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(read.readLine());
+        while (t-- > 0) {
+            String input = read.readLine();
+            
+            Solution ob = new Solution();
+            int result = ob.isRepeat(input);
+            
+            System.out.println(result);
+        }
+    }
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution {
+    int numberRepeat = 0;
+    int isRepeat(String s) {
+        // code here
+        if(repeatedSubstringPattern(s))
+        {
+            return 1;
+        }
+        
+       return 0;
+    }
+    
+     public boolean repeatedSubstringPattern(String s) {
+        
+        int len =s.length();
+        
+        for(int i= len/2 ; i>=1 ; i--)
+        {
+            if(len%i == 0)
+            {
+                numberRepeat = len/ i;
+                String substring = s.substring(0,i);
+                StringBuilder sb = new StringBuilder();
+                
+                for(int j =0 ;j<numberRepeat ;j++)
+                {
+                    sb.append(substring);
+                }
+                
+                if(sb.toString().equals(s))
+                    return true;
+            }
+            
+        }
+        return false;
+    }
+}
