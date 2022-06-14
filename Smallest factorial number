@@ -1,0 +1,65 @@
+// { Driver Code Starts
+//Initial Template for Java
+
+import java.util.*;
+
+public class GFG
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+        
+        int t = sc.nextInt();
+        
+        while (t-- > 0)
+        {
+            int n = sc.nextInt();
+            
+            System.out.println(new Solution().findNum(n));
+        }
+    }
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution
+{
+    int findNum(int n)
+    {
+        // Complete this function
+        int low =0 ;
+        int high = 5*n;
+        int ans = low;
+        
+        while(low<=high)
+        {
+            int mid = (low+high) /2;
+            int zeroes = noOfZero(mid); 
+            
+            if(zeroes >= n)
+            {
+                ans = mid;
+                high = mid-1;
+            }
+            else 
+            {
+                low = mid+1;
+            }
+        }
+        return ans;
+    }
+    
+    int noOfZero(int n)
+    {
+        int denominator = 5;
+        int zeroes =0;
+        
+        while(n>=denominator)
+        {
+            zeroes+=n/denominator;
+            denominator*=5;
+        }
+        return zeroes;
+    }
+}
