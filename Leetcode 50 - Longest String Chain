@@ -1,0 +1,29 @@
+class Solution {
+    public boolean check(String a, String b){
+    if(a.length()+1!=b.length()) return false;
+    int i=0,j=0,count=0;
+    while(i<a.length() && j<b.length()){
+        if(a.charAt(i)==b.charAt(j)){
+            i++;
+            j++;
+        }else{
+            if(++count>1) return false;
+            j++;
+        }
+    }
+    return true;
+    }
+
+public int longestStrChain(String[] arr) {
+    int n = arr.length;
+    int dp[] = new int[n];
+    Arrays.fill(dp,1);
+    int ans = 0;
+    Arrays.sort(arr,(a,b)->a.length()-b.length());
+    for(int i=0;i<n;i++){
+        for(int j=0;j<i;j++) if(check(arr[j],arr[i]) && dp[i]<dp[j]+1) dp[i] = dp[j]+1;
+        ans = Math.max(ans,dp[i]);
+    }
+    return ans;
+}
+}
