@@ -1,0 +1,142 @@
+/*
+EXPLAINATION : 
+
+BIPARTITE GRAPH : 
+           1. wo graph jisme parent node aur child node ka color same nhi hona chahiye ( baap aur bete ka color agar same he to graph biparte nhi hoga )
+
+    2. graph me ODD cycle nhi hona chahiye (agar odd cycle hoga to kisi na kisi parent node aur child node ka color same ho jayega )
+
+      
+Simply hme 1 conditions check karna he :-
+
+    1. baap(parent) aur bete(child) ka color same nhi hona chahiye. agar same he to Family(Graph) Bipartite NHI he.
+
+    
+
+    NOTE : ham code me color ko 0 aur 1 se represent kar rahe he 
+
+    Approach : using dfs
+
+        --> create a visited vector(jisme initially saare Node Unvisited rahege )
+
+        --> create a color vector (jisme initially saare nodes ka color 0 hoga)
+
+    
+
+        --> if node is not visited to dfs krke check krlo
+
+        -->DFS : 
+
+              --> pahle curr node ko visited mark kardo 
+
+              --> abb uske neighbour(child) par traverse krO 
+
+                --> child ka color baap ke color ka opposite mark karo (Baap gora beta KALA (Racism hogya ji)
+
+                --> agar beta visited nhi he to uske liye dfs call karke check karlo 
+
+                        --> kya bete(child) aur baap(parent) ka color same he
+
+                                --> if Yess return False (Graph se not Bipartite)
+
+*/```
+
+// { Driver Code Starts
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String[] S = br.readLine().trim().split(" ");
+            int V = Integer.parseInt(S[0]);
+            int E = Integer.parseInt(S[1]);
+            ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+            for(int i = 0; i < V; i++){
+                adj.add(new ArrayList<Integer>());
+            }
+            for(int i = 0; i < E; i++){
+                String[] s = br.readLine().trim().split(" ");
+                int u = Integer.parseInt(s[0]);
+                int v = Integer.parseInt(s[1]);
+                adj.get(u).add(v);
+                adj.get(v).add(u);
+            }
+            Solution obj = new Solution();
+            boolean ans = obj.isBipartite(V, adj);
+            if(ans)
+                System.out.println("1");
+            else System.out.println("0");
+       }
+    }
+}// } Driver Code Ends
+
+
+class Solution
+{
+    public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    
+        // Code here
+       
+   {
+       ArrayList<Node> nl=new ArrayList<>();
+       for(int i=0;i<V;i++)
+       {
+           Node n=new Node(i);
+           nl.add(n);
+       }
+       for(int i=0;i<V;i++)
+       {
+           Node u=nl.get(i);
+           for(int j:adj.get(i))
+           {
+               Node v=nl.get(j);
+               u.a.add(v);
+           }
+       }
+       for(int i=0;i<V;i++)
+       {
+           Queue<Node> q=new LinkedList<>();
+           
+           Node n=nl.get(i);
+           if(n.c!=-1)
+               continue;
+           n.c=0;
+           q.add(n);
+           while(!q.isEmpty())
+           {
+               Node u=q.remove();
+               for(Node nc:u.a)
+               {
+                   if(nc.c==u.c)
+                   {
+                       return false;
+                   }
+                   else if(nc.c==-1)
+                   {
+                       nc.c=1-u.c;
+                       q.add(nc);
+                   }
+               }
+           }
+       }
+       return true;
+   }
+   class Node
+   {
+       int d;
+       int c;
+       ArrayList<Node> a;
+       Node(int d)
+       {
+           this.d=d;
+           this.c=-1;
+           a=new ArrayList<Node>();
+       }
+    }
+}
