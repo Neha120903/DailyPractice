@@ -1,22 +1,31 @@
 class Solution {
     public int scheduleCourse(int[][] courses) {
-      Arrays.sort(courses, (a,b) -> a[1] - b[1]);
-      PriorityQueue<Integer> q = new PriorityQueue<> ((a,b) -> b-a);
-      int time =0;
+      Arrays.sort(courses , (a,b) -> a[1] == b[1] ? a[0] - b[0] : a[1] -b[1]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> b-a);
+        int time  =0;
         
-     for(int[] c:courses)
-     {
-         if(time+c[0] <= c[1])
-         {
-             q.offer(c[0]);
-             time += c[0];
-         }
-         else if(!q.isEmpty() && q.peek() >c[0])
-         {
-             time += c[0] - q.poll();
-             q.offer(c[0]);
-         }
-     }
-        return q.size();
+        for(int[] course: courses)
+        {
+            //Check if current course duration is less than lastday
+            if(course[0] <= course[1])
+            {
+                //Check if current course can be completed till the last day
+                if(course[0]+time <= course[1])
+                {
+                    pq.offer(course[0]);
+                   time+=course[0];
+                }
+                else
+                {
+                    if(pq.peek() > course[0])
+                    {
+                        time -= pq.poll();
+                        pq.offer(course[0]);
+                        time+=course[0];
+                    }
+                }
+            }
+        }
+        return pq.size();
     }
 }
