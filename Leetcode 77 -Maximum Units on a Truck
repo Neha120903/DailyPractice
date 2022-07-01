@@ -1,0 +1,16 @@
+class Solution {
+    public int maximumUnits(int[][] boxTypes, int truckSize) {
+        Arrays.sort(boxTypes,(a,b)-> -Integer.compare(a[1],b[1]));
+        //this will sort the array based on the their unit size
+        int maxUnits=0;
+        for(int[] i: boxTypes)
+        {
+            if(truckSize<i[0])
+                return maxUnits+truckSize*i[1];
+            maxUnits += i[0]*i[1];
+            truckSize -= i[0];
+        }
+        
+        return maxUnits;
+    }
+}
