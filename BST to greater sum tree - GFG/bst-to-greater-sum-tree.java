@@ -137,14 +137,18 @@ class Solution
     
     public static void transformTreeUtil (Node root, int[] totalSum)
     {
+        //Go to the rightmost node
        if(root.right!=null)
        {
            transformTreeUtil(root.right,totalSum);
        }
+       
+       //Update the sum
        int temp = root.data;
        root.data = totalSum[0];
        totalSum[0] += temp;
        
+       //Now go to the left child
        if(root.left!=null)
        {
            transformTreeUtil(root.left, totalSum);
