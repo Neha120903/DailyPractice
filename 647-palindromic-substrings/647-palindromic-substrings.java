@@ -4,8 +4,8 @@ class Solution {
         int res=0;
         for(int i=0; i<s.length(); i++)
         {
-            res += countPalindrome(s,i,i);
-            res += countPalindrome(s,i,i+1);
+            res += countPalindrome(s,i,i);//for odd length substring
+            res += countPalindrome(s,i,i+1);//for even length substring
         }
         return res;
     }
