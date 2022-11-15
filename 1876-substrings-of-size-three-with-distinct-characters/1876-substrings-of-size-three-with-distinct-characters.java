@@ -8,18 +8,10 @@ class Solution {
         while(end<s.length())
         {
             if(s.charAt(strt)!=s.charAt(prev)                                  &&s.charAt(strt)!=s.charAt(end) && s.charAt(prev)!=s.charAt(end))
-            {
-                ans+=1;
-                strt++;
-                prev++;
-                end++;
-            }
-            else
-            {
-                strt++;
-                prev++;
-                end++;
-            }
+           ans+=1;
+            strt++;
+            prev++;
+            end++;
         }
         return ans;
     }
